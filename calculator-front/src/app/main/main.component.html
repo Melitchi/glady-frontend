@@ -8,6 +8,22 @@
       <form [formGroup]="giftForm" (ngSubmit)="onSubmitForm()">
         <div class="row mb-1">
           <div class="col"></div>
+          <div class="col"> Boutique:</div>
+          <div class="col"></div>
+        </div>
+        <div class="row d-flex align-items-center">
+          <div class="col"></div>
+          <div class="col mb-3"> 
+            <select formControlName="shopId" class="form-select"  >
+              <option *ngFor="let shop of shopsList" [value]="shop.id">
+                {{shop.name}}
+              </option>
+            </select>
+          </div>
+          <div class="col"></div>
+        </div>
+        <div class="row mb-1">
+          <div class="col"></div>
           <div class="col"> Montant désiré :</div>
           <div class="col"></div>
         </div>

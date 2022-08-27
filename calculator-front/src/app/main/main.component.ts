@@ -1,3 +1,4 @@
+import { Shop } from './../models/shop';
 import { CalculatorServerResponse } from './../models/calculatorServerResponse';
 import { CalculatorComponentValue } from './../models/calculatorComponentValue'
 import { CalculatorService } from '../services/calculator.service';
@@ -16,20 +17,37 @@ export class MainComponent implements OnInit {
   isValidValue : boolean = true
   calculatorComponentValue!: CalculatorComponentValue
   cardsCounts : { [key: string]: number } = {}
+  shopsList! : Shop[]
   constructor(private formBuilder: FormBuilder, private calculatorService:CalculatorService) { }
 
   ngOnInit(): void {
     this.amountRegexp = /^[1-9]+[0-9]*$/;
     this.giftForm = this.formBuilder.group({
-      wantedAmount:[null, [Validators.required, Validators.pattern(this.amountRegexp)]]
+      wantedAmount:[null, [Validators.required, Validators.pattern(this.amountRegexp)]],
+      shopId:['5',[Validators.required]]
     })
+    this.shopsList = this.getShops()
+  }
+
+  /**
+   * Get shops user's can chose
+   * @returns shops list
+   */
+  getShops():Shop[] {
+      return [
+      { id: 1, name: 'Fnac' },
+      { id: 2, name: 'Cultura' },
+      { id: 3, name: 'Micromania' },
+      { id: 4, name: 'Sephora' },
+      { id: 5, name: 'Amazon' }
+    ]
   }
 
   /**
    * send value to server when form is submited
    */
   onSubmitForm(){
-    this.calculatorService.getGiftCardsValues(this.giftForm.value["wantedAmount"],5).subscribe((response:CalculatorServerResponse) => {
+    this.calculatorService.getGiftCardsValues(this.giftForm.value["wantedAmount"],this.giftForm.value["shopId"]).subscribe((response:CalculatorServerResponse) => {
       this.serverResponse = {...  response}
       this.processResult();
     })
@@ -43,7 +61,6 @@ export class MainComponent implements OnInit {
     if(this.serverResponse.equal!=undefined){ 
       this.isValidValue = true
       this.calculatorComponentValue =  {...this.serverResponse.equal} 
-
       // Counts number of occurencies in cards[]
       for (const num of this.calculatorComponentValue.cards) {
         this.cardsCounts[num] = this.cardsCounts[num] ? this.cardsCounts[num] + 1 : 1;
