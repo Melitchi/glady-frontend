@@ -1,44 +1,51 @@
 
 <div class="d-flex justify-content-center"> 
-
-    <div class="card text-center w-50 card-custom">
-      <div class="card-header">
-        Calculateur de cartes
-      </div>
-      <div class="card-body ">
-        <form [formGroup]="giftForm" (ngSubmit)="onSubmitForm()">
-          <div class="row">
-            <div class="col"></div>
-            <div class="col"> Montant désiré :</div>
-            <div class="col"></div>
+  <div class="card text-center w-50 card-custom">
+    <div class="card-header">
+      Calculateur de cartes cadeaux
+    </div>
+    <div class="card-body ">
+      <form [formGroup]="giftForm" (ngSubmit)="onSubmitForm()">
+        <div class="row mb-1">
+          <div class="col"></div>
+          <div class="col"> Montant désiré :</div>
+          <div class="col"></div>
+        </div>
+        <div class="row d-flex align-items-center">
+          <div class="col"></div>
+          <div class="col mb-3"> 
+            <input type="number" class="form-control input-number-custom" formControlName="wantedAmount">
           </div>
-          <div class="row d-flex align-items-center">
-            <div class="col"></div>
-            <div class="col mb-3"> 
-              <input type="number" class="form-control input-number-custom" formControlName="wantedAmount">
+          <div class="col text-start"> 
+            <div>
+              <button *ngIf="!isValidValue && serverResponse.ceil" type="button" (click)="onHigherValue()" class="btn btn-success mb-1"
+              style="--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .6rem; --bs-btn-font-size: .80rem;" 
+              >+</button>
             </div>
-            <div class="col text-start"> 
-              <div>
-                <button  type="button" class="btn btn-success mb-1"
-                style="--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .6rem; --bs-btn-font-size: .80rem;" 
-                >+</button>
-              </div>
-              <div>
-                <button type="button" class="btn btn-danger mb-3"
-                style="--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .7rem; --bs-btn-font-size: .80rem;" 
-                >-</button>
-              </div>
+            <div>
+              <button *ngIf="!isValidValue && serverResponse.floor" type="button" (click)="onLowerValue()" class="btn btn-danger mb-3"
+              style="--bs-btn-padding-y: .10rem; --bs-btn-padding-x: .7rem; --bs-btn-font-size: .80rem;" 
+              >-</button>
             </div>
           </div>
-          <div class="row">
-            <div class="col"></div>
-            <div class="col"> 
-              <button type="submit" [disabled]="giftForm.invalid" class="btn btn-primary">Valider</button>
-            </div>
-            <div class="col"></div>
+        </div>
+        <div class="row mb-3">
+          <div class="col"></div>
+          <div class="col"> 
+            <button type="submit" [disabled]="giftForm.invalid" class="btn btn-primary">Valider</button>
           </div>
-        </form>
-          <!---->
+          <div class="col"></div>
+        </div>
+        <div class="row">
+          <div class="col" *ngIf="!isValidValue">
+            <div class="alert alert-warning" role="alert">
+              Montant inatteignable. Saisissez un autre montant ou cliquez sur les boutons + ou - pour obtenir le montant le plus proche de celui que vous désiriez 
+            </div>
+          </div>
+        </div>
+      </form>
+      <!---->
+      <div *ngIf="serverResponse && serverResponse.equal">
         <hr>
         <div class="row">
           <p>Votre montant est composé des cartes suivantes :</p>
@@ -47,7 +54,19 @@
           Todo: For chaque éléménts du tableau cards créer une ligne pour chaque entrée et ajouter la partie multiplicateur si un nombre est en plusieurs exemplaires
         -->
         <div class="row">
-          <p>20 x2</p>
+          <div class="col"></div>
+          <div class="col">
+            <ul class="list-group">
+              <li  *ngFor="let item of cardsCounts | keyvalue"  class="list-group-item d-flex justify-content-between align-items-center">
+                {{item.key}}
+                <span class="badge bg-primary rounded-pill">x {{item.value}}</span>
+              </li>
+            </ul>
+          </div>
+          <div class="col"></div>
         </div>
       </div>
-  </div>
+    </div>
+    <br>
+</div>
+
