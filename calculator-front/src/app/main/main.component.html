@@ -55,7 +55,12 @@
         <div class="row">
           <div class="col" *ngIf="!isValidValue">
             <div class="alert alert-warning" role="alert">
-              Montant inatteignable. Saisissez un autre montant ou cliquez sur les boutons + ou - pour obtenir le montant le plus proche de celui que vous désiriez 
+              Montant inatteignable. Saisissez un autre montant ou cliquez sur les boutons + ou - pour obtenir le montant le plus proche de celui que vous désiriez. 
+            </div>
+          </div>
+          <div class="col" *ngIf="isOnError">
+            <div class="alert alert-danger" role="alert">
+              {{errorMessage}}
             </div>
           </div>
         </div>
@@ -66,9 +71,6 @@
         <div class="row">
           <p>Votre montant est composé des cartes suivantes :</p>
         </div>
-        <!-- 
-          Todo: For chaque éléménts du tableau cards créer une ligne pour chaque entrée et ajouter la partie multiplicateur si un nombre est en plusieurs exemplaires
-        -->
         <div class="row">
           <div class="col"></div>
           <div class="col">

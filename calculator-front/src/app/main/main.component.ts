@@ -13,15 +13,17 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class MainComponent implements OnInit {
   giftForm!: FormGroup
   amountRegexp! : RegExp
-  serverResponse! :CalculatorServerResponse;
+  serverResponse! :CalculatorServerResponse
   isValidValue : boolean = true
+  isOnError : boolean = false
+  errorMessage :string=''
   calculatorComponentValue!: CalculatorComponentValue
   cardsCounts : { [key: string]: number } = {}
   shopsList! : Shop[]
   constructor(private formBuilder: FormBuilder, private calculatorService:CalculatorService) { }
 
   ngOnInit(): void {
-    this.amountRegexp = /^[1-9]+[0-9]*$/;
+    this.amountRegexp = /^[1-9]+[0-9]*$/
     this.giftForm = this.formBuilder.group({
       wantedAmount:[null, [Validators.required, Validators.pattern(this.amountRegexp)]],
       shopId:['5',[Validators.required]]
@@ -46,10 +48,24 @@ export class MainComponent implements OnInit {
   /**
    * send value to server when form is submited
    */
-  onSubmitForm(){
-    this.calculatorService.getGiftCardsValues(this.giftForm.value["wantedAmount"],this.giftForm.value["shopId"]).subscribe((response:CalculatorServerResponse) => {
-      this.serverResponse = {...  response}
-      this.processResult();
+  onSubmitForm(){      
+    this.isOnError = false
+    this.calculatorService.getGiftCardsValues(this.giftForm.value["wantedAmount"],this.giftForm.value["shopId"])
+    
+    .subscribe({
+      next: (response:CalculatorServerResponse) => {
+        this.serverResponse = {...  response}
+        this.processResult();
+    },
+      error:(error) => {
+        console.error('error caught in component')
+        if(error.status === 400){
+          this.errorMessage = "Erreur, le service n'est actuellement disponible que pour le vendeur Amazon.";
+        }else{
+          this.errorMessage = "Une erreur s'est produite, veuillez réessayer plus tard.";
+        }
+        this.isOnError = true
+      }
     })
   }
 
