@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { User } from './../models/user';
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from '@angular/core';
@@ -6,17 +7,25 @@ import { Injectable } from '@angular/core';
     providedIn: 'root'
 })
 export class AuthService {
-     
-    constructor(private http: HttpClient) {
+    
+    redirectUrl: string =''
+
+    constructor(private http: HttpClient, private router: Router) {
     }
      
 
+    /**
+     * Authenticate user and get token from server
+     * @param username 
+     * @param password 
+     * @returns json
+     */
     login(username:string, password:string ) {
         return this.http.post<User>('http://localhost:3000/login', {username, password}).subscribe
         (res => {
             this.storeToken(res)
-        })
-        
+            this.router.navigate([this.redirectUrl]);
+        }) 
     } 
 
     /**
@@ -24,19 +33,17 @@ export class AuthService {
      * @param authResponse json with token value
      */
     private storeToken(authResponse:any){
-        console.log('dans store token')
         const now = new Date().getTime()
         const expiresAt = (now + 10 * 60000) // Token valable 10min
         localStorage.setItem("token",authResponse.token)
         localStorage.setItem("expires_at", JSON.stringify(expiresAt.valueOf()) );
-
     }
 
     /**
      * Remove token data from local storage
      */
     logout() {
-        localStorage.removeItem("id_token");
+        localStorage.removeItem("token");
         localStorage.removeItem("expires_at");
     }
 

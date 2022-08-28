@@ -19,7 +19,7 @@ export class HeadersInterceptor implements HttpInterceptor {
    * @returns 
    */
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const token = localStorage.getItem("id_token")
+    const token = localStorage.getItem("token")
     if(token){
     const clone = request.clone({
       setHeaders : {
