@@ -3,9 +3,10 @@ import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
-  HttpInterceptor
+  HttpInterceptor,
+  HttpErrorResponse
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError} from 'rxjs';
 
 @Injectable()
 export class HeadersInterceptor implements HttpInterceptor {
@@ -26,9 +27,24 @@ export class HeadersInterceptor implements HttpInterceptor {
         'Authorization': token
       }
     })
-    return next.handle(clone);
+    return next.handle(clone).pipe(
+      catchError((error : any) => {
+        console.log("error",error)
+          return throwError(() => new Error(error.message))
+      })
+    )
   }else{
-    return next.handle(request);
+    return next.handle(request).pipe(
+      catchError((error : any) => {
+        console.log("error",error)
+        if(error.status  === 401){
+          window.location.href = "/login";  
+          return throwError(() => new Error(error.message))
+        }else{
+          return throwError(() => new Error(error.message))
+        }
+      })
+    );
   }
   }
 }

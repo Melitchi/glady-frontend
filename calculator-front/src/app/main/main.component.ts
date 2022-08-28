@@ -52,7 +52,6 @@ export class MainComponent implements OnInit {
   onSubmitForm(){      
     this.isOnError = false
     this.calculatorService.getGiftCardsValues(this.giftForm.value["wantedAmount"],this.giftForm.value["shopId"])
-    
     .subscribe({
       next: (response:CalculatorServerResponse) => {
         this.serverResponse = {...  response}
