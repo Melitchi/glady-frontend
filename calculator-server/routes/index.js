@@ -20,6 +20,12 @@ var possibleCombinations = [
 ];
 
 
+router.post('/login', function(req,res,next){
+  res.status(200).json({
+    token: testToken, 
+  });
+})
+
 /* GET home page. */
 router.get('/shop/:shopId/search-combination', function(req, res, next) {
   if (req.header('Authorization') !== testToken) {
