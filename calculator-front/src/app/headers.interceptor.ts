@@ -30,7 +30,7 @@ export class HeadersInterceptor implements HttpInterceptor {
     return next.handle(clone).pipe(
       catchError((error : any) => {
         console.log("error",error)
-          return throwError(() => new Error(error.message))
+          return throwError(() => error)
       })
     )
   }else{
@@ -39,9 +39,9 @@ export class HeadersInterceptor implements HttpInterceptor {
         console.log("error",error)
         if(error.status  === 401){
           window.location.href = "/login";  
-          return throwError(() => new Error(error.message))
+          return throwError(() => error)
         }else{
-          return throwError(() => new Error(error.message))
+          return throwError(() => error)
         }
       })
     );

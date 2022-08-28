@@ -58,7 +58,6 @@ export class MainComponent implements OnInit {
         this.processResult();
     },
       error:(error) => {
-        console.error('error caught in component')
         if(error.status === 400){
           this.errorMessage = "Erreur, le service n'est actuellement disponible que pour le vendeur Amazon.";
         }else{
