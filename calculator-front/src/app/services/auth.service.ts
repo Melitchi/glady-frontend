@@ -43,8 +43,9 @@ export class AuthService {
      * Remove token data from local storage
      */
     logout() {
-        localStorage.removeItem("token");
-        localStorage.removeItem("expires_at");
+        localStorage.clear()
+        this.router.navigateByUrl('login');
+
     }
 
     /**
