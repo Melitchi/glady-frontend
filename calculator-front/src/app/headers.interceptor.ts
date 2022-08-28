@@ -18,13 +18,17 @@ export class HeadersInterceptor implements HttpInterceptor {
    * @param next 
    * @returns 
    */
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    const token = 'tokenTest123'
-    request =request.clone({
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    const token = localStorage.getItem("id_token")
+    if(token){
+    const clone = request.clone({
       setHeaders : {
         'Authorization': token
       }
     })
+    return next.handle(clone);
+  }else{
     return next.handle(request);
+  }
   }
 }

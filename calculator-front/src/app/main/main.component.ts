@@ -20,6 +20,7 @@ export class MainComponent implements OnInit {
   calculatorComponentValue!: CalculatorComponentValue
   cardsCounts : { [key: string]: number } = {}
   shopsList! : Shop[]
+  
   constructor(private formBuilder: FormBuilder, private calculatorService:CalculatorService) { }
 
   ngOnInit(): void {
