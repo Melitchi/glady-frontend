@@ -1,0 +1,20 @@
+<div class="d-flex justify-content-center"> 
+  <div class="card text-center w-50 login-card">
+    <div class="card-header">
+      Connectez-vous     
+    </div>
+      <div class="card-body ">
+        <form [formGroup]="loginForm" (submit)="login()">
+          <div class="col-auto mb-3">
+            <input type="text" formControlName="username" class="form-control"  placeholder="Login">
+          </div>
+            <div class="col-auto mb-3">
+              <input type="password" formControlName="password" class="form-control" placeholder="Password">
+            </div>
+            <div class="col-auto">
+              <button type="submit" [disabled]="loginForm.invalid" class="btn btn-primary mb-3">Connexion</button>
+            </div> 
+        </form>
+      </div>
+    </div>
+</div>
