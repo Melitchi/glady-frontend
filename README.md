@@ -1,15 +1,70 @@
-# Wedoogift Frontend challenge
-You are interested in joining our team ? try to accomplish this challenge, we will be glad to see
-your code and give you a feedback.
+<h1 align="center">
+  <br>
+      Glady - Frontend
+  <br>
+</h1>
 
-## Tools
+## Table of contents
 
-A small server is provided to emulate the Wedoogift API to run your component with.
+  * [Installation](#installation)
+     * [Prerequisites](#prerequisites)
+     * [Frontend](#frontend)
+     * [Backend](#backend)
+     * [UnitTests](#unit-test)
+  * [Application](#application)
+    * [Topic](#topic)
+    * [Level 1](#level-1)
+    * [Level 2](#level-2)
+    * [Level 3](#level-3-bonus)
 
-To start it, go to `calculator-server`, run `npm install` and then `npm start`, the API will be listening on 
-port 3000.
 
-The documentation of the API is available in `calculator-server/doc.md`.
+
+
+<h2 id="installation">Installation</h2>
+
+### Prerequisites
+
+Be sure to get npm version **6.14.13 or later** and angular cli version 14.2.0 or above**
+You can clone project from the main branch with the command below:
+
+```
+git clone "https://github.com/Melitchi/glady-frontend.git"
+```
+
+### Frontend
+
+
+With your Terminal navigate to calculator-front/ and run :
+
+```
+npm install
+```
+
+Start the project with :
+```
+ng serve
+```
+
+### Backend
+
+Open a new tab or a Terminal, navigate to calculator-server/ and run :
+```
+npm install 
+```
+
+Start the backend with:
+```
+npm start
+```
+
+### Unit Test
+
+With AngularCLI you can use Karma and Jasmine
+To execute tests, you have to navigate to calculator-front/ and run :
+```
+ng test
+```
+
 
 ## Topic
 
