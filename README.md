@@ -65,6 +65,7 @@ To execute tests, you have to navigate to calculator-front/ and run :
 ng test
 ```
 
+<h2 id="application">Appliccation</h2>
 
 ## Topic
 
@@ -76,7 +77,10 @@ Our REST API will help him and find the suitable combination of cards to reach t
 The goal of this challenge is to create a component in which the user can type the desired amount he wants to
 purchase. 
 
-## Level 1
+### Login page
+This is a dummy authentication, you can enter any values for **username** and **password** to get logged in.
+
+### Level 1
 
 When the user has finished typing the amount (and clicked on a button to validate the amount), the calculator
 will ask the API with the desired amount and:
@@ -109,7 +113,7 @@ Votre montant est composé des cartes suivantes :
 
 ```
 
-## Level 2
+### Level 2
 
 In order not to let the user guessing the next possible amounts, the component will allow the user to ask for the next
 amounts thanks to "minus" and "plus" buttons. When clicked, the component will ask the API for the next amount and correct
@@ -132,7 +136,7 @@ Votre montant est composé des cartes suivantes :
 
 ```
 
-## Level 3 (bonus)
+### Level 3 (bonus)
 
 Refactor the component so that it can be used as a form control in a reactive form (FormGroup).
 
