@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   HttpRequest,
   HttpHandler,
   HttpEvent,
   HttpInterceptor,
-  HttpErrorResponse
 } from '@angular/common/http';
 import { Observable, catchError, throwError} from 'rxjs';
 
 @Injectable()
 export class HeadersInterceptor implements HttpInterceptor {
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   /**
    *  Intercept all requests to add headers
@@ -29,16 +29,15 @@ export class HeadersInterceptor implements HttpInterceptor {
     })
     return next.handle(clone).pipe(
       catchError((error : any) => {
-        console.log("error",error)
           return throwError(() => error)
       })
     )
   }else{
     return next.handle(request).pipe(
       catchError((error : any) => {
-        console.log("error",error)
         if(error.status  === 401){
-          window.location.href = "/login";  
+          this.router.navigateByUrl('login');
+
           return throwError(() => error)
         }else{
           return throwError(() => error)

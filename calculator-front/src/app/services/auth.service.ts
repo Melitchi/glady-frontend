@@ -13,7 +13,6 @@ export class AuthService {
     constructor(private http: HttpClient, private router: Router) {
     }
      
-
     /**
      * Authenticate user and get token from server
      * @param username 
@@ -45,7 +44,6 @@ export class AuthService {
     logout() {
         localStorage.clear()
         this.router.navigateByUrl('login');
-
     }
 
     /**
@@ -57,9 +55,8 @@ export class AuthService {
         if (expiration !=  null){
             const expiresAt = JSON.parse(expiration);
             return new Date(expiresAt);
-
         }else{
-            return new Date().getTime() - 10000
+            return new Date().getTime() - 10 * 60000
         }
     }    
 
