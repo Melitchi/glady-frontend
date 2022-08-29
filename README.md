@@ -65,7 +65,7 @@ To execute tests, you have to navigate to calculator-front/ and run :
 ng test
 ```
 
-<h2 id="application">Appliccation</h2>
+<h2 id="application">Application</h2>
 
 ## Topic
 
