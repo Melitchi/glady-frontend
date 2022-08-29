@@ -67,7 +67,7 @@ ng test
 
 <h2 id="application">Application</h2>
 
-## Topic
+### Topic
 
 In an **Angular 2+** project, allow users to find a combination of cards allowing him to reach the desired value.
 
